@@ -6,14 +6,14 @@ const PhotoListItem = (props) => {
 
 
   return (
-    <main>
-      <img className="uploaded_image" src= {props.image} />
-      <section className= "user-info">
-        <img className="profile_image" src= {props.profilePic}/>
-        <br />
-        <span>{props.username}</span>
-        <br />
-        <span>{props.city}, {props.country}</span>
+    <main className="photo-list__item">
+      <img className="photo-list__image" src= {props.photo.imageSource} />
+      <section className= "photo-list__user-details">
+        <img className="photo-list__user-profile" src= {props.photo.profile}/>
+      <section className="photo-list__user-info">
+        <span className="photo-list__user-details">{props.photo.username}</span>
+        <span className="photo-list__user-location">{props.photo.location.city}, {props.photo.location.country}</span>
+      </section>
       </section>
     </main>
   );
