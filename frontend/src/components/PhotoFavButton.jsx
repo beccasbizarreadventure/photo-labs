@@ -9,7 +9,6 @@ const [isLiked, setLike] = useState('false');
 const handleClick = () => {
   setLike(!isLiked);  
 }
-const favIconClass = isLiked === 'true' ? "photo-list__fav-icon-svg" : "photo-list__fav-icon";
 
 return (
   <div className="photo-list__fav-icon" onClick={handleClick}>
