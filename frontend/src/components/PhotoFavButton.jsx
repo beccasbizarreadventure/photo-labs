@@ -5,9 +5,9 @@ import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton() {
 
-const [isLiked, setLike] = useState('false');
+const [isLiked, setLike] = useState(false);
 const handleClick = () => {
-  setLike(!isLiked);  
+  setLike(prevIsLiked => !prevIsLiked);  
 }
 
 return (
