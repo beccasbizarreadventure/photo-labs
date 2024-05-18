@@ -1,5 +1,4 @@
 import React from 'react';
-
 import PhotoListItem from './components/PhotoListItem';
 import './App.scss';
 
@@ -25,10 +24,6 @@ const App = () => {
           <PhotoListItem photo={photoItem} key={index}/>
         ))
       }
-      {/* <PhotoListItem 
-       photo= {sampleArray}
-       key= {sampleDataForPhotoListItem.id}
-      /> */}
     </div>
   );
 };
