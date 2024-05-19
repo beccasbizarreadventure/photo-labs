@@ -22,13 +22,13 @@ const sampleDataForTopicList = [
 
 const TopicList = () => {
   return (
-    <menu className="top-nav-bar__topic-list">
+    <ul className="top-nav-bar__topic-list">
       {
         sampleDataForTopicList.map((topicItem, id) => (
           <TopicListItem topic={topicItem} key={id} />
         ))
       }
-    </menu>
+    </ul>
   );
 };
 
