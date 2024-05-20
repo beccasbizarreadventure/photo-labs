@@ -4,7 +4,7 @@ import TopNavigation from 'components/TopNavigationBar';
 
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = ({topics, photos}) => {
+const HomeRoute = ({topics, photos, selectPhoto}) => {
 
 const [isLiked, setLike] = useState([]);
 const handleLike = (photoId) => {
@@ -20,7 +20,7 @@ const isFavPhotoExist = isLiked.length >= 1;
   return (
     <div className="home-route">
       <TopNavigation topics={topics} isLiked={isLiked} isFavPhotoExist={isFavPhotoExist}/>
-      <PhotoList photos={photos} handleLike={handleLike} isLiked={isLiked}/>
+      <PhotoList photos={photos} handleLike={handleLike} isLiked={isLiked} selectPhoto={selectPhoto}/>
     </div>
   );
 };
