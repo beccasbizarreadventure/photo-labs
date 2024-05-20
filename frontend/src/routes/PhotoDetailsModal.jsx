@@ -6,7 +6,10 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import '../styles/PhotoDetailsModal.scss';
 
 const PhotoDetailsModal = ({ closeModal, selectedPhoto }) => {
+
+  const relatedPhotos = selectedPhoto.similar_photos;
   console.log(selectedPhoto);
+
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button" onClick={closeModal}>
@@ -20,6 +23,11 @@ const PhotoDetailsModal = ({ closeModal, selectedPhoto }) => {
           <span className="photo-details-modal__photographer-location">{selectedPhoto.location.city}, {selectedPhoto.location.country}</span>
         </section>
       </section>
+      <div className="photo-details-modal__top-bar">
+        <section className='photo-details-modal__images'>
+          <PhotoList photos={relatedPhotos} />
+        </section>
+      </div>
     </div>
   )
 };
