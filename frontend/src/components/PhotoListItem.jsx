@@ -2,12 +2,12 @@ import React from "react";
 import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({photo}) => {
+const PhotoListItem = ({photo, handleLike, isLiked}) => {
 
 
   return (
     <main className="photo-list__item">
-      <PhotoFavButton/>
+      <PhotoFavButton handleLike={handleLike} isLiked={isLiked}/>
       <img className="photo-list__image" src= {photo.urls.regular} />
       <section className= "photo-list__user-details">
         <img className="photo-list__user-profile" src= {photo.user.profile}/>

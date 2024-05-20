@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = (props) => {
+const HomeRoute = ({topics, photos}) => {
+
+const [isLiked, setLike] = useState(false);
+const handleLike = () => {
+  setLike(prevIsLiked => !prevIsLiked);  
+}
+
   return (
     <div className="home-route">
-      <TopNavigation topics={props.topics}/>
-      <PhotoList photos={props.photos}/>
+      <TopNavigation topics={topics}/>
+      <PhotoList photos={photos} handleLike={handleLike} isLiked={isLiked}/>
     </div>
   );
 };

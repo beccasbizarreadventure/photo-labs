@@ -3,15 +3,10 @@ import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
 
-function PhotoFavButton() {
-
-const [isLiked, setLike] = useState(false);
-const handleClick = () => {
-  setLike(prevIsLiked => !prevIsLiked);  
-}
+function PhotoFavButton({handleLike, isLiked}) {
 
 return (
-  <div className="photo-list__fav-icon" onClick={handleClick}>
+  <div className="photo-list__fav-icon" onClick={handleLike}>
     <div className="photo-list__fav-icon-svg">
       <FavIcon selected={isLiked} />
     </div>
