@@ -15,9 +15,11 @@ const handleLike = (photoId) => {
   }
 };
 
+const isFavPhotoExist = isLiked.length >= 1;
+
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} isLiked={isLiked}/>
+      <TopNavigation topics={topics} isLiked={isLiked} isFavPhotoExist={isFavPhotoExist}/>
       <PhotoList photos={photos} handleLike={handleLike} isLiked={isLiked}/>
     </div>
   );
