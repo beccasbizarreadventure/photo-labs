@@ -3,7 +3,7 @@ import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
 const PhotoList = ({photos, handleLike, isLiked}) => {
-  console.log(isLiked);
+
   return (
     <ul className="photo-list">
       {

@@ -17,7 +17,7 @@ const handleLike = (photoId) => {
 
   return (
     <div className="home-route">
-      <TopNavigation topics={topics}/>
+      <TopNavigation topics={topics} isLiked={isLiked}/>
       <PhotoList photos={photos} handleLike={handleLike} isLiked={isLiked}/>
     </div>
   );
