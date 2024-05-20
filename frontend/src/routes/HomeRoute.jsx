@@ -6,10 +6,14 @@ import '../styles/HomeRoute.scss';
 
 const HomeRoute = ({topics, photos}) => {
 
-const [isLiked, setLike] = useState(false);
-const handleLike = () => {
-  setLike(prevIsLiked => !prevIsLiked);  
-}
+const [isLiked, setLike] = useState([]);
+const handleLike = (photoId) => {
+  if (isLiked.includes(photoId)) {
+    setLike(prevIsLiked => prevIsLiked.filter(id => id !== photoId));  
+  } else {
+    setLike(prevIsLiked => [...prevIsLiked, photoId]);
+  }
+};
 
   return (
     <div className="home-route">
