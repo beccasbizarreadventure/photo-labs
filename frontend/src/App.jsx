@@ -16,7 +16,6 @@ const App = () => {
   const selectPhoto = (photoId) => {
     const result = photos.find((photo) => photo.id === photoId)
     if (result) {
-    console.log(result);
     setSelectedPhoto(result);
     } else {
       console.error(`No photo found with id ${photoId}`);
@@ -30,7 +29,7 @@ const App = () => {
   return (
     <div className="App">
       <HomeRoute topics={topics} photos={photos} selectPhoto={selectPhoto}/>
-      {selectedPhoto && <PhotoDetailsModal closeModal={closeModal} />}
+      {selectedPhoto && <PhotoDetailsModal closeModal={closeModal} selectedPhoto={selectedPhoto} />}
     </div>
   );
 };
