@@ -15,8 +15,13 @@ const App = () => {
 
   const selectPhoto = (photoId) => {
     const result = photos.find((photo) => photo.id === photoId)
+    if (result) {
+    console.log(result);
     setSelectedPhoto(result);
-  }
+    } else {
+      console.error(`No photo found with id ${photoId}`);
+    };
+  };
 
   const closeModal = () => {
     setSelectedPhoto(null);
