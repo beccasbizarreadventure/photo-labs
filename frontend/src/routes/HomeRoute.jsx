@@ -4,16 +4,7 @@ import TopNavigation from 'components/TopNavigationBar';
 
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = ({topics, photos, selectPhoto}) => {
-
-const [isLiked, setLike] = useState([]);
-const handleLike = (photoId) => {
-  if (isLiked.includes(photoId)) {
-    setLike(prevIsLiked => prevIsLiked.filter(id => id !== photoId));  
-  } else {
-    setLike(prevIsLiked => [...prevIsLiked, photoId]);
-  }
-};
+const HomeRoute = ({topics, photos, selectPhoto, handleLike, isLiked}) => {
 
 const isFavPhotoExist = isLiked.length >= 1;
 
