@@ -13,7 +13,7 @@ const PhotoDetailsModal = ({ closeModal, selectedPhoto, isLiked, handleLike }) =
       <button className="photo-details-modal__close-button" onClick={closeModal}>
         <img src={closeSymbol} alt="close symbol" />
       </button>
-      <PhotoFavButton handleLike={handleLike} isLiked={isLiked} />
+      <PhotoFavButton handleLike={() => handleLike(selectedPhoto.id)} isLiked={isLiked.includes(selectedPhoto.id)} />
       <img className="photo-details-modal__image" src={selectedPhoto.urls.full} />
       <section className="photo-details-modal__header">
         <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} />
