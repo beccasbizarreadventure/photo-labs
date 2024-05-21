@@ -3,12 +3,12 @@ import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
 
-function PhotoFavButton({handleLike, isLiked}) {
+function PhotoFavButton({toggleFavourite, favourite}) {
 
 return (
-  <div className="photo-list__fav-icon" onClick={handleLike}>
+  <div className="photo-list__fav-icon" onClick={toggleFavourite}>
     <div className="photo-list__fav-icon-svg">
-      <FavIcon selected={isLiked} />
+      <FavIcon selected={favourite} />
     </div>
   </div>
 );

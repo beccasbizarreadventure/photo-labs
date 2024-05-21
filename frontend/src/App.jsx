@@ -28,21 +28,21 @@ const App = () => {
   }
 
   //LIKE A PHOTO//
-const [isLiked, setLike] = useState([]);
-const handleLike = (photoId) => {
-  if (isLiked.includes(photoId)) {
-    setLike(prevIsLiked => prevIsLiked.filter(id => id !== photoId));  
+const [favourite, setFavourite] = useState([]);
+const toggleFavourite = (photoId) => {
+  if (favourite.includes(photoId)) {
+    setFavourite(prevFavourite => prevFavourite.filter(id => id !== photoId));  
   } else {
-    setLike(prevIsLiked => [...prevIsLiked, photoId]);
+    setFavourite(prevFavourite => [...prevFavourite, photoId]);
   }
 };
 
-const isFavPhotoExist = isLiked.length >= 1;
+const isFavPhotoExist = favourite.length >= 1;
 
   return (
     <div className="App">
-      <HomeRoute topics={topics} photos={photos} selectPhoto={selectPhoto} handleLike={handleLike} isLiked={isLiked} isFavPhotoExist={isFavPhotoExist}/>
-      {selectedPhoto && <PhotoDetailsModal closeModal={closeModal} selectedPhoto={selectedPhoto} handleLike={handleLike} isLiked={isLiked} />}
+      <HomeRoute topics={topics} photos={photos} selectPhoto={selectPhoto} toggleFavourite={toggleFavourite} favourite={favourite} isFavPhotoExist={isFavPhotoExist}/>
+      {selectedPhoto && <PhotoDetailsModal closeModal={closeModal} selectedPhoto={selectedPhoto} toggleFavourite={toggleFavourite} favourite={favourite} />}
     </div>
   );
 };

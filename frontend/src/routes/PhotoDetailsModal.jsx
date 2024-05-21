@@ -6,14 +6,14 @@ import closeSymbol from '../assets/closeSymbol.svg';
 
 import '../styles/PhotoDetailsModal.scss';
 
-const PhotoDetailsModal = ({ closeModal, selectedPhoto, isLiked, handleLike }) => {
+const PhotoDetailsModal = ({ closeModal, selectedPhoto, favourite, toggleFavourite }) => {
   const relatedPhotosArray = Object.values(selectedPhoto.similar_photos);
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button" onClick={closeModal}>
         <img src={closeSymbol} alt="close symbol" />
       </button>
-      <PhotoFavButton handleLike={() => handleLike(selectedPhoto.id)} isLiked={isLiked.includes(selectedPhoto.id)} />
+      <PhotoFavButton toggleFavourite={() => toggleFavourite(selectedPhoto.id)} favourite={favourite.includes(selectedPhoto.id)} />
       <img className="photo-details-modal__image" src={selectedPhoto.urls.full} />
       <section className="photo-details-modal__header">
         <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} />
@@ -24,7 +24,7 @@ const PhotoDetailsModal = ({ closeModal, selectedPhoto, isLiked, handleLike }) =
       </section>
       <h3>Similar Photos</h3>
       <div>
-        <PhotoList photos={relatedPhotosArray} handleLike={handleLike} isLiked={isLiked}/>
+        <PhotoList photos={relatedPhotosArray} toggleFavourite={toggleFavourite} favourite={favourite}/>
       </div>
     </div>
   )
