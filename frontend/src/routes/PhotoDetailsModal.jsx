@@ -24,7 +24,7 @@ const PhotoDetailsModal = ({ closeModal, selectedPhoto, isLiked, handleLike }) =
       </section>
       <h3>Similar Photos</h3>
       <div>
-        <PhotoList photos={relatedPhotosArray} />
+        <PhotoList photos={relatedPhotosArray} handleLike={handleLike} isLiked={isLiked}/>
       </div>
     </div>
   )

@@ -37,9 +37,11 @@ const handleLike = (photoId) => {
   }
 };
 
+const isFavPhotoExist = isLiked.length >= 1;
+
   return (
     <div className="App">
-      <HomeRoute topics={topics} photos={photos} selectPhoto={selectPhoto} handleLike={handleLike} isLiked={isLiked}/>
+      <HomeRoute topics={topics} photos={photos} selectPhoto={selectPhoto} handleLike={handleLike} isLiked={isLiked} isFavPhotoExist={isFavPhotoExist}/>
       {selectedPhoto && <PhotoDetailsModal closeModal={closeModal} selectedPhoto={selectedPhoto} handleLike={handleLike} isLiked={isLiked} />}
     </div>
   );

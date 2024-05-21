@@ -4,9 +4,7 @@ import TopNavigation from 'components/TopNavigationBar';
 
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = ({topics, photos, selectPhoto, handleLike, isLiked}) => {
-
-const isFavPhotoExist = isLiked.length >= 1;
+const HomeRoute = ({topics, photos, selectPhoto, handleLike, isLiked, isFavPhotoExist}) => {
 
   return (
     <div className="home-route">
