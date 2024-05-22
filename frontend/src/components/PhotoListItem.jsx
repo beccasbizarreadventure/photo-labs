@@ -12,7 +12,7 @@ const PhotoListItem = ({photo, toggleFavourite, favourite, selectPhoto}) => {
       <section className= "photo-list__user-details">
         <img className="photo-list__user-profile" src= {photo.user.profile}/>
       <section className="photo-list__user-info">
-        <span className="wrapper">{photo.user.name}</span>
+        <span className="photo-list__user-details">{photo.user.name}</span>
         <span className="photo-list__user-location">{photo.location.city}, {photo.location.country}</span>
       </section>
       </section>
