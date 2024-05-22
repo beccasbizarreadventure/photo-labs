@@ -8,6 +8,13 @@
   -moz-box-shadow: 0 4px 6px -6px #222;
   box-shadow: 0 4px 6px -6px #222;
   height: 72px;
+  background-color: #ffffff;
+}
+
+.topics-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .top-nav-bar__logo {
