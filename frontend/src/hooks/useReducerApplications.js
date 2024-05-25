@@ -52,8 +52,9 @@ const useApplicationDataRedux = () => {
   const toggleFavourite = (photoId) => {
     if (state.favouritePhotos.includes(photoId)) {
       dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId } });
-    }
+    } else {
     dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId } });
+    }
   };
 
   const isFavourite = (photoId) => {
