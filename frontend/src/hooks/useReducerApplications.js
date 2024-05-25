@@ -9,6 +9,7 @@ const ACTIONS = {
   SELECT_PHOTO: "SELECT_PHOTO",
   DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
   CLOSE_MODAL: "CLOSE_MODAL",
+  CHECK_FAV_PHOTO: "CHECK_FAV_PHOTO"
 };
 
 ///
@@ -25,11 +26,15 @@ function reducer(state, action) {
       console.log(state.favouritePhotos);
       return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId )]}
 
+    case ACTIONS.CHECK_FAV_PHOTO:
+      return { ...state, favouritePhotos: [...state.favouritePhotos.includes(payload.photoId)]}
+
     case ACTIONS.SELECT_PHOTO:
       return { ...state, selectedPhoto: payload.photoData}
 
     case ACTIONS.CLOSE_MODAL:
       return { ...state, selectedPhoto: null };
+
 
     default:
       throw new Error(
@@ -51,6 +56,10 @@ const useApplicationDataRedux = () => {
     dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId } });
   };
 
+  const isFavourite = (photoId) => {
+    dispatch({ type: ACTIONS.CHECK_FAV_PHOTO, payload: { photoId }});
+  };
+
   const selectPhoto = (photoData) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photoData } });
   };
@@ -67,7 +76,8 @@ const useApplicationDataRedux = () => {
     selectPhoto,
     closeModal,
     selectedPhoto: state.selectedPhoto,
-    favourite: state.favouritePhotos
+    favourite: state.favouritePhotos,
+    isFavourite
   };
 };
 
