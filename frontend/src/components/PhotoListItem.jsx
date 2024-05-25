@@ -4,17 +4,17 @@ import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = ({
   photo,
-  onToggleFavourite,
+  toggleFavourite,
   favourite,
-  onSelectPhoto,
+  selectPhoto,
 }) => {
   return (
     <main className="photo-list__item">
-      <PhotoFavButton onClick={onToggleFavourite} favourite={favourite} />
+      <PhotoFavButton toggleFavourite={toggleFavourite} favourite={favourite} />
       <img
         className="photo-list__image"
         src={photo.urls.regular}
-        onClick={onSelectPhoto}
+        onClick={selectPhoto}
       />
       <section className="photo-list__user-details">
         <img className="photo-list__user-profile" src={photo.user.profile} />

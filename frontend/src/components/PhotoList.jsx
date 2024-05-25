@@ -9,9 +9,9 @@ const PhotoList = ({ photos, toggleFavourite, favourite, selectPhoto }) => {
         <PhotoListItem
           photo={photoItem}
           key={photoItem.id}
-          onToggleFavourite={() => toggleFavourite(photoItem.id)}
-          favourite={favourite}
-          onSelectPhoto={() => selectPhoto(photoItem)}
+          toggleFavourite={() => toggleFavourite(photoItem.id)}
+          favourite={favourite.includes(photoItem.id)}
+          selectPhoto={() => selectPhoto(photoItem)}
         />
       ))}
     </ul>

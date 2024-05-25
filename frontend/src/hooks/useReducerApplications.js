@@ -30,7 +30,7 @@ function reducer(state, action) {
       return { ...state, favouritePhotos: [...state.favouritePhotos.includes(payload.photoId)]}
 
     case ACTIONS.SELECT_PHOTO:
-      return { ...state, selectedPhoto: payload.photoData}
+      return { ...state, selectedPhoto: photos.find((photo) => photo.id === payload.photoData.id)}
 
     case ACTIONS.CLOSE_MODAL:
       return { ...state, selectedPhoto: null };
