@@ -9,7 +9,6 @@ const ACTIONS = {
   SELECT_PHOTO: "SELECT_PHOTO",
   DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
   CLOSE_MODAL: "CLOSE_MODAL",
-  CHECK_FAV_PHOTO: "CHECK_FAV_PHOTO"
 };
 
 ///
@@ -25,9 +24,6 @@ function reducer(state, action) {
       console.log('remove');
       console.log(state.favouritePhotos);
       return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId )]}
-
-    case ACTIONS.CHECK_FAV_PHOTO:
-      return { ...state, favouritePhotos: [...state.favouritePhotos.includes(payload.photoId)]}
 
     case ACTIONS.SELECT_PHOTO:
       return { ...state, selectedPhoto: photos.find((photo) => photo.id === payload.photoData.id)}
@@ -57,10 +53,6 @@ const useApplicationDataRedux = () => {
     }
   };
 
-  const isFavourite = (photoId) => {
-    dispatch({ type: ACTIONS.CHECK_FAV_PHOTO, payload: { photoId }});
-  };
-
   const selectPhoto = (photoData) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photoData } });
   };
@@ -78,7 +70,6 @@ const useApplicationDataRedux = () => {
     closeModal,
     selectedPhoto: state.selectedPhoto,
     favourite: state.favouritePhotos,
-    isFavourite
   };
 };
 
