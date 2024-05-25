@@ -1,43 +1,74 @@
-import React, { useReducer } from 'react';
-import photos from 'mocks/photos';
+import { useReducer } from "react";
+import photos from "mocks/photos";
 
-export const ACTIONS = {
-  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
-  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
-  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  TOGGLE_FAV_PHOTO: 'toggle_fav_photo'
+const ACTIONS = {
+  FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
+  FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
+  SET_PHOTO_DATA: "SET_PHOTO_DATA",
+  SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  SELECT_PHOTO: "SELECT_PHOTO",
+  DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
+  CLOSE_MODAL: "CLOSE_MODAL",
 };
 
-const initialState = {
-  favouritePhotos: [],
-};
-
-const isFavPhotoExist = state.favouritePhotos.length >= 1;
-
-const [state, dispatch] = useReducer(reducer, initialState);
-
+///
 function reducer(state, action) {
+  const {type, payload} = action;
 
-  const photoId = action.payload.id;
-  const prevFavourites = state.favouritePhotos;
-
-  switch (action.type) {
+  switch (type) {
     case ACTIONS.FAV_PHOTO_ADDED:
-      return { ...state, favouritePhotos: [...prevFavourites, photoId] };
+      console.log(state.favouritePhotos);
+      return { ...state, favouritePhotos: [...state.favouritePhotos, payload.photoId] };
 
     case ACTIONS.FAV_PHOTO_REMOVED:
-      if (prevFavourites.includes(photoId)) {
-        return { ...state, favouritePhotos: prevFavourites.filter(id => id !== photoId) };
-      }
+      console.log('remove');
+      console.log(state.favouritePhotos);
+      return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId )]}
+
+    case ACTIONS.SELECT_PHOTO:
+      return { ...state, selectedPhoto: payload.photoData}
+
+    case ACTIONS.CLOSE_MODAL:
+      return { ...state, selectedPhoto: null };
+
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
   }
 }
 
-const toggleFavourite = (photoId) => {
-  if (state.favouritePhotos.includes(photoId)) {
-    dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId: id } });
-  }
-  dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId: id } });
+const useApplicationDataRedux = () => {
+  const [state, dispatch] = useReducer(reducer, {
+    favouritePhotos: [],
+    selectedPhoto: null,
+  });
+
+  const toggleFavourite = (photoId) => {
+    if (state.favouritePhotos.includes(photoId)) {
+      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId } });
+    }
+    dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId } });
+  };
+
+  const selectPhoto = (photoData) => {
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photoData } });
+  };
+
+  const closeModal = () => {
+    dispatch({ type: ACTIONS.CLOSE_MODAL });
+  };
+
+  const isFavPhotoExist = state.favouritePhotos.length >= 1;
+
+  return {
+    toggleFavourite,
+    isFavPhotoExist,
+    selectPhoto,
+    closeModal,
+    selectedPhoto: state.selectedPhoto,
+    favourite: state.favouritePhotos
+  };
 };
+
+export default useApplicationDataRedux;

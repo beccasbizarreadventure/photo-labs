@@ -5,14 +5,11 @@ const useApplicationData = () => {
 
  //SELECT ONE PHOTO//
  const [selectedPhoto, setSelectedPhoto] = useState(null)
+ const [favourite, setFavourite] = useState([]);
 
- const selectPhoto = (photoId) => {
-   const result = photos.find((photo) => photo.id === photoId)
-   if (result) {
-   setSelectedPhoto(result);
-   } else {
-     console.error(`No photo found with id ${photoId}`);
-   };
+
+ const selectPhoto = (photoData) => {
+   setSelectedPhoto(photoData);
  };
 
 //CLOSE MODAL//
@@ -21,7 +18,6 @@ const useApplicationData = () => {
  }
 
  //LIKE A PHOTO//
-const [favourite, setFavourite] = useState([]);
 const toggleFavourite = (photoId) => {
  if (favourite.includes(photoId)) {
    setFavourite(prevFavourite => prevFavourite.filter(id => id !== photoId));  
