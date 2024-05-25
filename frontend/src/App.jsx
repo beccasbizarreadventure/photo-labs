@@ -6,7 +6,6 @@ import HomeRoute from "routes/HomeRoute";
 import topics from "mocks/topics";
 import photos from "mocks/photos";
 import useApplicationData from "hooks/useApplicationData";
-import useApplicationDataRedux from "hooks/useReducerApplications";
 
 import "./App.scss";
 
@@ -19,7 +18,7 @@ const App = () => {
     selectedPhoto,
     isFavPhotoExist,
     favourite,
-  } = useApplicationDataRedux();
+  } = useApplicationData();
 
   return (
     <div className="App">
