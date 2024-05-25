@@ -6,43 +6,40 @@ import closeSymbol from "../assets/closeSymbol.svg";
 
 import "../styles/PhotoDetailsModal.scss";
 
-const PhotoDetailsModal = ({
-  closeModal,
-  selectedPhoto,
-  favourite,
-  toggleFavourite,
-  selectPhoto
-}) => {
-  const relatedPhotosArray = Object.values(selectedPhoto.similar_photos);
+const PhotoDetailsModal = (props) => {
+
+  const photo = props.selectedPhoto;
+
+  const relatedPhotosArray = Object.values(photo.similar_photos);
   return (
     <div className="photo-details-modal">
       <button
         className="photo-details-modal__close-button"
-        onClick={closeModal}
+        onClick={props.closeModal}
       >
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <section className="photo-details-modal__images">
         <PhotoFavButton
-          toggleFavourite={() => toggleFavourite(selectedPhoto.id)}
-          favourite={favourite.includes(selectedPhoto.id)}
+          toggleFavourite={() => props.toggleFavourite(photo.id)}
+          favourite={props.favourite.includes(photo.id)}
         />
         <img
           className="photo-details-modal__image"
-          src={selectedPhoto.urls.full}
+          src={photo.urls.full}
         />
         <section className="photo-details-modal__header">
           <section className="photo-details-modal__photographer-details">
             <img
               className="photo-details-modal__photographer-profile"
-              src={selectedPhoto.user.profile}
+              src={photo.user.profile}
             />
             <section className="photo-details-modal__photographer-info">
               <span className="photo-details-modal__photographer-details">
-                {selectedPhoto.user.name}
+                {photo.user.name}
               </span>
               <span className="photo-details-modal__photographer-location">
-                {selectedPhoto.location.city}, {selectedPhoto.location.country}
+                {photo.location.city}, {photo.location.country}
               </span>
             </section>
           </section>
@@ -53,9 +50,9 @@ const PhotoDetailsModal = ({
         <div>
           <PhotoList
             photos={relatedPhotosArray}
-            toggleFavourite={toggleFavourite}
-            favourite={favourite}
-            selectPhoto={selectPhoto}
+            toggleFavourite={props.toggleFavourite}
+            favourite={props.favourite}
+            selectPhoto={props.selectPhoto}
           />
         </div>
       </div>
