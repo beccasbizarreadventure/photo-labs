@@ -4,7 +4,6 @@ import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import HomeRoute from "routes/HomeRoute";
 
 import topics from "mocks/topics";
-import photos from "mocks/photos";
 import useApplicationData from "hooks/useApplicationData";
 
 import "./App.scss";
@@ -18,6 +17,7 @@ const App = () => {
     selectedPhoto,
     isFavPhotoExist,
     favourite,
+    photos
   } = useApplicationData();
 
   return (

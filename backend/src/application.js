@@ -31,7 +31,7 @@ function read(file) {
 module.exports = function application(
   ENV,
 ) {
-  app.use(cors());
+  app.use(cors({origin: `http://localhost:3000`}));
   app.use(helmet());
   app.use(bodyparser.json());
   app.use(express.static(path.join(__dirname, 'public')));

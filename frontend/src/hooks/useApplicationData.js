@@ -1,5 +1,5 @@
-import { useReducer } from "react";
-import photos from "mocks/photos";
+import { useReducer, useEffect } from "react";
+
 
 const ACTIONS = {
   FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
@@ -23,10 +23,13 @@ function reducer(state, action) {
       return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId)] };
 
     case ACTIONS.SELECT_PHOTO:
-      return { ...state, selectedPhoto: photos.find((photo) => photo.id === payload.photoData.id) };
+      return { ...state, selectedPhoto: state.photoData.find((photo) => photo.id === payload.photo.id) };
 
     case ACTIONS.CLOSE_MODAL:
       return { ...state, selectedPhoto: null };
+
+    case ACTIONS.SET_PHOTO_DATA:
+      return { ...state, photoData: payload }
 
 
     default:
@@ -40,15 +43,28 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, {
     favouritePhotos: [],
     selectedPhoto: null,
+    photoData: [],
+    topicData: []
   });
+ 
+  useEffect(() => {
+    fetch("http://localhost:8001/api/photos")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch(error => console.error("There was a problem with your fetch operation:", error));
+  }, []);
 
   const toggleFavourite = (photoId) => {
     state.favouritePhotos.includes(photoId) ? dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId } }) :
       dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId } });
   };
 
-  const selectPhoto = (photoData) => {
-    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photoData } });
+  const selectPhoto = (photo) => {
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo } });
   };
 
   const closeModal = () => {
@@ -64,6 +80,7 @@ const useApplicationData = () => {
     closeModal,
     selectedPhoto: state.selectedPhoto,
     favourite: state.favouritePhotos,
+    photos: state.photoData
   };
 };
 
