@@ -13,20 +13,17 @@ const ACTIONS = {
 
 ///
 function reducer(state, action) {
-  const {type, payload} = action;
+  const { type, payload } = action;
 
   switch (type) {
     case ACTIONS.FAV_PHOTO_ADDED:
-      console.log(state.favouritePhotos);
       return { ...state, favouritePhotos: [...state.favouritePhotos, payload.photoId] };
 
     case ACTIONS.FAV_PHOTO_REMOVED:
-      console.log('remove');
-      console.log(state.favouritePhotos);
-      return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId )]}
+      return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId)] };
 
     case ACTIONS.SELECT_PHOTO:
-      return { ...state, selectedPhoto: photos.find((photo) => photo.id === payload.photoData.id)}
+      return { ...state, selectedPhoto: photos.find((photo) => photo.id === payload.photoData.id) };
 
     case ACTIONS.CLOSE_MODAL:
       return { ...state, selectedPhoto: null };
@@ -46,11 +43,8 @@ const useApplicationData = () => {
   });
 
   const toggleFavourite = (photoId) => {
-    if (state.favouritePhotos.includes(photoId)) {
-      dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId } });
-    } else {
-    dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId } });
-    }
+    state.favouritePhotos.includes(photoId) ? dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId } }) :
+      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId } });
   };
 
   const selectPhoto = (photoData) => {
