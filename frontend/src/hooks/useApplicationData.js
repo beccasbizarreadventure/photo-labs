@@ -7,7 +7,6 @@ const ACTIONS = {
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
   SELECT_PHOTO: "SELECT_PHOTO",
-  DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
   CLOSE_MODAL: "CLOSE_MODAL",
 };
 
@@ -29,13 +28,13 @@ function reducer(state, action) {
       return { ...state, selectedPhoto: null };
 
     case ACTIONS.SET_PHOTO_DATA:
-      return { ...state, photoData: payload }
+      return { ...state, photoData: payload };
 
+    case ACTIONS.SET_TOPIC_DATA:
+      return { ...state, topicData: payload }
 
     default:
-      throw new Error(
-        `Tried to reduce with unsupported action type: ${action.type}`
-      );
+      return state;
   }
 }
 
@@ -47,6 +46,7 @@ const useApplicationData = () => {
     topicData: []
   });
  
+  // FETCH PHOTO DATA
   useEffect(() => {
     fetch("http://localhost:8001/api/photos")
       .then(response => {
@@ -54,6 +54,18 @@ const useApplicationData = () => {
       })
       .then(data => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch(error => console.error("There was a problem with your fetch operation:", error));
+  }, []);
+
+  // FETCH TOPIC DATA
+  useEffect(() => {
+    fetch("http://localhost:8001/api/topics")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
       })
       .catch(error => console.error("There was a problem with your fetch operation:", error));
   }, []);
@@ -80,7 +92,8 @@ const useApplicationData = () => {
     closeModal,
     selectedPhoto: state.selectedPhoto,
     favourite: state.favouritePhotos,
-    photos: state.photoData
+    photos: state.photoData,
+    topics: state.topicData
   };
 };
 
