@@ -10,6 +10,7 @@ const HomeRoute = (props) => {
       <TopNavigation
         topics={props.topics}
         isFavPhotoExist={props.isFavPhotoExist}
+        selectTopic={props.selectTopic}
       />
       <PhotoList
         photos={props.photos}

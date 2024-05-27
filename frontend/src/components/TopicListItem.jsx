@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import "../styles/TopicListItem.scss";
 
-const TopicListItem = ({topic}) => {
+const TopicListItem = (props) => {
 
   const [mouseOver, setOver]= useState(false);
   let listItemStyle = "topic-list__item span"
@@ -12,8 +12,9 @@ const TopicListItem = ({topic}) => {
     <li className= "topic-list__item">
       <span className={listItemStyle}
     onMouseOver={()=>setOver(true)} 
-    onMouseOut={()=>setOver(false)}>
-      {topic.title}
+    onMouseOut={()=>setOver(false)}
+    onClick={props.selectTopic}>
+      {props.topic.title}
       </span>
     </li>
   );

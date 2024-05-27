@@ -2,14 +2,15 @@ import React from "react";
 import TopicListItem from "./TopicListItem";
 import "../styles/TopicList.scss";
 
-const TopicList = ({topics}) => {
+const TopicList = (props) => {
   return (
     <ul className="top-nav-bar__topic-list">
-      {
-        topics.map((topicItem, id) => (
-          <TopicListItem topic={topicItem} key={id} />
-        ))
-      }
+      {props.topics.map((topicItem, id) => (
+        <TopicListItem 
+        topic={topicItem} 
+        key={topicItem.id} 
+        selectTopic={() => props.selectTopic(topicItem)}/>
+      ))}
     </ul>
   );
 };

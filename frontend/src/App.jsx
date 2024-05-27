@@ -14,6 +14,7 @@ const App = () => {
     toggleFavourite,
     closeModal,
     selectPhoto,
+    selectTopic,
     selectedPhoto,
     isFavPhotoExist,
     favourite,
@@ -26,6 +27,7 @@ const App = () => {
         topics={topics}
         photos={photos}
         selectPhoto={selectPhoto}
+        selectTopic={selectTopic}
         toggleFavourite={toggleFavourite}
         favourite={favourite}
         isFavPhotoExist={isFavPhotoExist}

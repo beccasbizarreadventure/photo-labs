@@ -7,6 +7,7 @@ const ACTIONS = {
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
   SELECT_PHOTO: "SELECT_PHOTO",
+  SELECT_TOPIC: "SELECT_TOPIC",
   CLOSE_MODAL: "CLOSE_MODAL",
 };
 
@@ -23,6 +24,9 @@ function reducer(state, action) {
 
     case ACTIONS.SELECT_PHOTO:
       return { ...state, selectedPhoto: state.photoData.find((photo) => photo.id === payload.photo.id) };
+
+    case ACTIONS.SELECT_TOPIC:
+      return { ...state, selectedTopic: state.topicData.find((topic) => topic.id === payload.topic.id)};
 
     case ACTIONS.CLOSE_MODAL:
       return { ...state, selectedPhoto: null };
@@ -79,6 +83,10 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo } });
   };
 
+  const selectTopic = (topic) => {
+    dispatch({ type: ACTIONS.SELECT_TOPIC, payload: { topic } });
+  };
+
   const closeModal = () => {
     dispatch({ type: ACTIONS.CLOSE_MODAL });
   };
@@ -90,6 +98,7 @@ const useApplicationData = () => {
     isFavPhotoExist,
     selectPhoto,
     closeModal,
+    selectTopic,
     selectedPhoto: state.selectedPhoto,
     favourite: state.favouritePhotos,
     photos: state.photoData,
