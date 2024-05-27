@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PhotoList from "components/PhotoList";
 import TopNavigation from "components/TopNavigationBar";
 
@@ -9,7 +9,7 @@ const HomeRoute = (props) => {
     <div className="home-route">
       <TopNavigation
         topics={props.topics}
-        isFavPhotoExist={props.isFavPhotoExist}
+        doesFavPhotoExist={props.doesFavPhotoExist}
         selectTopic={props.selectTopic}
       />
       <PhotoList

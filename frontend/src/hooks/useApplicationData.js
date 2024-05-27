@@ -3,8 +3,8 @@ import axios from "axios";
 
 
 const ACTIONS = {
-  FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
-  FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
+  ADD_FAV_PHOTO: "ADD_FAV_PHOTO",
+  REMOVE_FAV_PHOTO: "REMOVE_FAV_PHOTO",
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
   SELECT_PHOTO: "SELECT_PHOTO",
@@ -18,10 +18,10 @@ function reducer(state, action) {
 
   switch (type) {
     // LIKE/UNLIKE A PHOTO STATE MANAGEMENT //
-    case ACTIONS.FAV_PHOTO_ADDED:
+    case ACTIONS.ADD_FAV_PHOTO:
       return { ...state, favouritePhotos: [...state.favouritePhotos, payload.photoId] };
 
-    case ACTIONS.FAV_PHOTO_REMOVED:
+    case ACTIONS.REMOVE_FAV_PHOTO:
       return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId)] };
 
     // STATE MANAGEMENT FOR SELECTING ONE TOPIC OR ONE PHOTO // 
@@ -98,8 +98,8 @@ const useApplicationData = () => {
 
   // LIKE/UNLIKE A PHOTO
   const toggleFavourite = (photoId) => {
-    state.favouritePhotos.includes(photoId) ? dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId } }) :
-      dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId } });
+    state.favouritePhotos.includes(photoId) ? dispatch({ type: ACTIONS.REMOVE_FAV_PHOTO, payload: { photoId } }) :
+      dispatch({ type: ACTIONS.ADD_FAV_PHOTO, payload: { photoId } });
   };
 
   // SELECT DATA FOR A SPECIFIC PHOTO 
@@ -118,14 +118,14 @@ const useApplicationData = () => {
   };
 
   // FAVOURITE PHOTO CONSTANT - FOR FAVBADE NOTIFICATION (WILL TURN GREEN WHEN CONDITION MET)
-  const isFavPhotoExist = state.favouritePhotos.length >= 1;
+  const doesFavPhotoExist = state.favouritePhotos.length >= 1;
 
   return {
     toggleFavourite,
     closeModal,
     selectPhoto,
     selectTopic,
-    isFavPhotoExist,
+    doesFavPhotoExist,
     selectedPhoto: state.selectedPhoto,
     favourite: state.favouritePhotos,
     photos: state.photoData,

@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import HomeRoute from "routes/HomeRoute";
 
-import topics from "mocks/topics";
 import useApplicationData from "hooks/useApplicationData";
 
 import "./App.scss";
 
-// Note: Rendering a single component to build components in isolation
 const App = () => {
   const {
     toggleFavourite,
@@ -16,10 +14,10 @@ const App = () => {
     selectPhoto,
     selectTopic,
     selectedPhoto,
-    isFavPhotoExist,
+    doesFavPhotoExist,
     favourite,
     topics,
-    photos
+    photos,
   } = useApplicationData();
 
   return (
@@ -31,7 +29,7 @@ const App = () => {
         selectTopic={selectTopic}
         toggleFavourite={toggleFavourite}
         favourite={favourite}
-        isFavPhotoExist={isFavPhotoExist}
+        doesFavPhotoExist={doesFavPhotoExist}
       />
       {selectedPhoto && (
         <PhotoDetailsModal

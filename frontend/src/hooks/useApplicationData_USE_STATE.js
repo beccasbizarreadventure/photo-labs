@@ -28,9 +28,9 @@ const toggleFavourite = (photoId) => {
 };
 
  //FAV PHOTO CONSTANT//
- const isFavPhotoExist = favourite.length >= 1;
+ const doesFavPhotoExist = favourite.length >= 1;
 
- return {toggleFavourite, closeModal, selectPhoto, selectedPhoto, isFavPhotoExist, favourite};
+ return {toggleFavourite, closeModal, selectPhoto, selectedPhoto, doesFavPhotoExist, favourite};
 
 }
 
