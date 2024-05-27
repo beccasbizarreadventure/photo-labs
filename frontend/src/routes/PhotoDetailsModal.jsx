@@ -7,10 +7,10 @@ import closeSymbol from "../assets/closeSymbol.svg";
 import "../styles/PhotoDetailsModal.scss";
 
 const PhotoDetailsModal = (props) => {
-
   const photo = props.selectedPhoto;
 
   const relatedPhotosArray = Object.values(photo.similar_photos);
+
   return (
     <div className="photo-details-modal">
       <button
@@ -24,10 +24,7 @@ const PhotoDetailsModal = (props) => {
           toggleFavourite={() => props.toggleFavourite(photo.id)}
           favourite={props.favourite.includes(photo.id)}
         />
-        <img
-          className="photo-details-modal__image"
-          src={photo.urls.full}
-        />
+        <img className="photo-details-modal__image" src={photo.urls.full} />
         <section className="photo-details-modal__header">
           <section className="photo-details-modal__photographer-details">
             <img

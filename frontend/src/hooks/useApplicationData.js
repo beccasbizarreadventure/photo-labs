@@ -17,14 +17,14 @@ function reducer(state, action) {
   const { type, payload } = action;
 
   switch (type) {
-    // LIKE/UNLIKE A PHOTO STATE MANAGEMENT //
+    // LIKE/UNLIKE A PHOTO STATE MANAGEMENT 
     case ACTIONS.ADD_FAV_PHOTO:
       return { ...state, favouritePhotos: [...state.favouritePhotos, payload.photoId] };
 
     case ACTIONS.REMOVE_FAV_PHOTO:
       return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId)] };
 
-    // STATE MANAGEMENT FOR SELECTING ONE TOPIC OR ONE PHOTO // 
+    // STATE MANAGEMENT FOR SELECTING ONE TOPIC OR ONE PHOTO  
     // state.photoData.find using the whole photo item found by ID allows this state to function in a reusuable manner
     // either from HomeRoute or in the PhotoModal, a PhotoListItem from PhotoList can be found and rendered onClick by it's ID 
     case ACTIONS.SELECT_PHOTO:
@@ -33,7 +33,7 @@ function reducer(state, action) {
     case ACTIONS.SELECT_TOPIC:
       return { ...state, selectedTopic: payload.topicId };
 
-    // PHOTOS RETURNED BY SELECTED TOPIC ID //  
+    // PHOTOS RETURNED BY SELECTED TOPIC ID  
     case ACTIONS.GET_PHOTOS_BY_TOPICS:
       return { ...state, photoData: payload.photoData };
 
