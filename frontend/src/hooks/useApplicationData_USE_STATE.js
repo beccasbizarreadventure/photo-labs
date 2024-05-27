@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import photos from 'mocks/photos';
+
+//// THIS IS JUST MY OWN FILE FOR REFERENCE OF USING USESTATE - IT'S NOT LINKED TO THE REST OF THE APP ///
 
 const useApplicationData = () => { 
 

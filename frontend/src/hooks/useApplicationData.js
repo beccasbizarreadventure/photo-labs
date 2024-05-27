@@ -13,29 +13,37 @@ const ACTIONS = {
   CLOSE_MODAL: "CLOSE_MODAL",
 };
 
-///
 function reducer(state, action) {
   const { type, payload } = action;
 
   switch (type) {
+    // LIKE/UNLIKE A PHOTO STATE MANAGEMENT //
     case ACTIONS.FAV_PHOTO_ADDED:
       return { ...state, favouritePhotos: [...state.favouritePhotos, payload.photoId] };
 
     case ACTIONS.FAV_PHOTO_REMOVED:
       return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId)] };
 
+    // STATE MANAGEMENT FOR SELECTING ONE TOPIC OR ONE PHOTO // 
+    // state.photoData.find using the whole photo item found by ID allows this state to function in a reusuable manner
+    // either from HomeRoute or in the PhotoModal, a PhotoListItem from PhotoList can be found and rendered onClick by it's ID 
     case ACTIONS.SELECT_PHOTO:
       return { ...state, selectedPhoto: state.photoData.find((photo) => photo.id === payload.photo.id) };
 
     case ACTIONS.SELECT_TOPIC:
       return { ...state, selectedTopic: payload.topicId };
 
+    // PHOTOS RETURNED BY SELECTED TOPIC ID //  
     case ACTIONS.GET_PHOTOS_BY_TOPICS:
       return { ...state, photoData: payload.photoData };
+
+    // HANDLE MODAL CLOSE
+    // model open is dependant on selectedPhoto state
 
     case ACTIONS.CLOSE_MODAL:
       return { ...state, selectedPhoto: null };
 
+    // DISPLAY DATA FROM DATABASE TO TOPICS AND PHOTOS IN HOMEROUTE
     case ACTIONS.SET_PHOTO_DATA:
       return { ...state, photoData: payload.allPhotoData };
 
@@ -61,7 +69,7 @@ const useApplicationData = () => {
     axios.get("http://localhost:8001/api/photos")
       .then(res => {
         const allPhotoData = res.data;
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload:{ allPhotoData } });
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { allPhotoData } });
       })
       .catch(error => console.error("There was a problem with your fetch operation:", error));
   }, []);
@@ -71,52 +79,57 @@ const useApplicationData = () => {
     axios.get("http://localhost:8001/api/topics")
       .then(res => {
         const allTopicData = res.data;
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload:{ allTopicData }});
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { allTopicData } });
       })
       .catch(error => console.error("There was a problem with your fetch operation:", error));
   }, []);
 
-  // FETCH PHOTOS FOR TOPICS DATA
+  // FETCH PHOTOS FOR SPECIFIC TOPICS DATA
   useEffect(() => {
     if (state.selectedTopic) {
       axios.get(`http://localhost:8001/api/topics/photos/${state.selectedTopic}`)
         .then(res => {
           const photoData = res.data;
-          dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload:{ photoData }});
+          dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: { photoData } });
         })
         .catch(error => console.error("There was a problem with your fetch operation:", error));
     }
   }, [state.selectedTopic]);
 
+  // LIKE/UNLIKE A PHOTO
   const toggleFavourite = (photoId) => {
     state.favouritePhotos.includes(photoId) ? dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId } }) :
       dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: { photoId } });
   };
 
+  // SELECT DATA FOR A SPECIFIC PHOTO 
   const selectPhoto = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo } });
   };
 
+  // SELECT A SPECIFIC TOPIC CATEGORY   
   const selectTopic = (topic) => {
     dispatch({ type: ACTIONS.SELECT_TOPIC, payload: { topicId: topic.id } });
   };
 
+  // CLOSE PHOTO MODAL WHEN OPEN - MODEL OPENS ON SELECTING A PHOTO 
   const closeModal = () => {
     dispatch({ type: ACTIONS.CLOSE_MODAL });
   };
 
+  // FAVOURITE PHOTO CONSTANT - FOR FAVBADE NOTIFICATION (WILL TURN GREEN WHEN CONDITION MET)
   const isFavPhotoExist = state.favouritePhotos.length >= 1;
 
   return {
     toggleFavourite,
-    isFavPhotoExist,
+    closeModal,
     selectPhoto,
     selectTopic,
-    closeModal,
+    isFavPhotoExist,
     selectedPhoto: state.selectedPhoto,
     favourite: state.favouritePhotos,
     photos: state.photoData,
-    topics: state.topicData
+    topics: state.topicData,
   };
 };
 
