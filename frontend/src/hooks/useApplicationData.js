@@ -5,11 +5,11 @@ import axios from "axios";
 const ACTIONS = {
   ADD_FAV_PHOTO: "ADD_FAV_PHOTO",
   REMOVE_FAV_PHOTO: "REMOVE_FAV_PHOTO",
-  SET_PHOTO_DATA: "SET_PHOTO_DATA",
-  SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  DISPLAY_PHOTO_DATA: "SET_PHOTO_DATA",
+  DISPLAY_TOPIC_DATA: "SET_TOPIC_DATA",
   SELECT_PHOTO: "SELECT_PHOTO",
   SELECT_TOPIC: "SELECT_TOPIC",
-  GET_PHOTOS_BY_TOPICS: "GET_PHOTOS_BY_TOPICS",
+  GET_PHOTOS_BY_TOPIC: "GET_PHOTOS_BY_TOPIC",
   CLOSE_MODAL: "CLOSE_MODAL",
 };
 
@@ -34,20 +34,19 @@ function reducer(state, action) {
       return { ...state, selectedTopic: payload.topicId };
 
     // PHOTOS RETURNED BY SELECTED TOPIC ID  
-    case ACTIONS.GET_PHOTOS_BY_TOPICS:
+    case ACTIONS.GET_PHOTOS_BY_TOPIC:
       return { ...state, photoData: payload.photoData };
 
     // HANDLE MODAL CLOSE
     // model open is dependant on selectedPhoto state
-
     case ACTIONS.CLOSE_MODAL:
       return { ...state, selectedPhoto: null };
 
     // DISPLAY DATA FROM DATABASE TO TOPICS AND PHOTOS IN HOMEROUTE
-    case ACTIONS.SET_PHOTO_DATA:
+    case ACTIONS.DISPLAY_PHOTO_DATA:
       return { ...state, photoData: payload.allPhotoData };
 
-    case ACTIONS.SET_TOPIC_DATA:
+    case ACTIONS.DISPLAY_TOPIC_DATA:
       return { ...state, topicData: payload.allTopicData };
 
     default:
@@ -69,7 +68,7 @@ const useApplicationData = () => {
     axios.get("http://localhost:8001/api/photos")
       .then(res => {
         const allPhotoData = res.data;
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { allPhotoData } });
+        dispatch({ type: ACTIONS.DISPLAY_PHOTO_DATA, payload: { allPhotoData } });
       })
       .catch(error => console.error("There was a problem with your fetch operation:", error));
   }, []);
@@ -79,7 +78,7 @@ const useApplicationData = () => {
     axios.get("http://localhost:8001/api/topics")
       .then(res => {
         const allTopicData = res.data;
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { allTopicData } });
+        dispatch({ type: ACTIONS.DISPLAY_TOPIC_DATA, payload: { allTopicData } });
       })
       .catch(error => console.error("There was a problem with your fetch operation:", error));
   }, []);
@@ -90,7 +89,7 @@ const useApplicationData = () => {
       axios.get(`http://localhost:8001/api/topics/photos/${state.selectedTopic}`)
         .then(res => {
           const photoData = res.data;
-          dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: { photoData } });
+          dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPIC, payload: { photoData } });
         })
         .catch(error => console.error("There was a problem with your fetch operation:", error));
     }
@@ -117,7 +116,7 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.CLOSE_MODAL });
   };
 
-  // FAVOURITE PHOTO CONSTANT - FOR FAVBADE NOTIFICATION (WILL TURN GREEN WHEN CONDITION MET)
+  // FAVOURITE PHOTO CONSTANT - FOR FAVBADGE NOTIFICATION (WILL TURN GREEN WHEN CONDITION MET)
   const doesFavPhotoExist = state.favouritePhotos.length >= 1;
 
   return {
