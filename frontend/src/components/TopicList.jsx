@@ -9,7 +9,8 @@ const TopicList = (props) => {
         <TopicListItem 
         topic={topicItem} 
         key={topicItem.id} 
-        selectTopic={() => props.selectTopic(topicItem)}/>
+        selectTopic={() => props.selectTopic(topicItem)}
+        />
       ))}
     </ul>
   );

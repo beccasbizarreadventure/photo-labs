@@ -18,6 +18,7 @@ const App = () => {
     selectedPhoto,
     isFavPhotoExist,
     favourite,
+    topics,
     photos
   } = useApplicationData();
 

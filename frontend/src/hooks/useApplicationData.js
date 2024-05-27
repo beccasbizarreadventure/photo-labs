@@ -1,4 +1,5 @@
 import { useReducer, useEffect } from "react";
+import axios from "axios";
 
 
 const ACTIONS = {
@@ -8,6 +9,7 @@ const ACTIONS = {
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
   SELECT_PHOTO: "SELECT_PHOTO",
   SELECT_TOPIC: "SELECT_TOPIC",
+  GET_PHOTOS_BY_TOPICS: "GET_PHOTOS_BY_TOPICS",
   CLOSE_MODAL: "CLOSE_MODAL",
 };
 
@@ -26,16 +28,19 @@ function reducer(state, action) {
       return { ...state, selectedPhoto: state.photoData.find((photo) => photo.id === payload.photo.id) };
 
     case ACTIONS.SELECT_TOPIC:
-      return { ...state, selectedTopic: state.topicData.find((topic) => topic.id === payload.topic.id)};
+      return { ...state, selectedTopic: payload.topicId };
+
+    case ACTIONS.GET_PHOTOS_BY_TOPICS:
+      return { ...state, photoData: payload.photoData };
 
     case ACTIONS.CLOSE_MODAL:
       return { ...state, selectedPhoto: null };
 
     case ACTIONS.SET_PHOTO_DATA:
-      return { ...state, photoData: payload };
+      return { ...state, photoData: payload.allPhotoData };
 
     case ACTIONS.SET_TOPIC_DATA:
-      return { ...state, topicData: payload }
+      return { ...state, topicData: payload.allTopicData };
 
     default:
       return state;
@@ -46,33 +51,42 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, {
     favouritePhotos: [],
     selectedPhoto: null,
+    selectedTopic: null,
     photoData: [],
-    topicData: []
+    topicData: [],
   });
- 
+
   // FETCH PHOTO DATA
   useEffect(() => {
-    fetch("http://localhost:8001/api/photos")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+    axios.get("http://localhost:8001/api/photos")
+      .then(res => {
+        const allPhotoData = res.data;
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload:{ allPhotoData } });
       })
       .catch(error => console.error("There was a problem with your fetch operation:", error));
   }, []);
 
   // FETCH TOPIC DATA
   useEffect(() => {
-    fetch("http://localhost:8001/api/topics")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+    axios.get("http://localhost:8001/api/topics")
+      .then(res => {
+        const allTopicData = res.data;
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload:{ allTopicData }});
       })
       .catch(error => console.error("There was a problem with your fetch operation:", error));
   }, []);
+
+  // FETCH PHOTOS FOR TOPICS DATA
+  useEffect(() => {
+    if (state.selectedTopic) {
+      axios.get(`http://localhost:8001/api/topics/photos/${state.selectedTopic}`)
+        .then(res => {
+          const photoData = res.data;
+          dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload:{ photoData }});
+        })
+        .catch(error => console.error("There was a problem with your fetch operation:", error));
+    }
+  }, [state.selectedTopic]);
 
   const toggleFavourite = (photoId) => {
     state.favouritePhotos.includes(photoId) ? dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: { photoId } }) :
@@ -84,7 +98,7 @@ const useApplicationData = () => {
   };
 
   const selectTopic = (topic) => {
-    dispatch({ type: ACTIONS.SELECT_TOPIC, payload: { topic } });
+    dispatch({ type: ACTIONS.SELECT_TOPIC, payload: { topicId: topic.id } });
   };
 
   const closeModal = () => {
@@ -97,8 +111,8 @@ const useApplicationData = () => {
     toggleFavourite,
     isFavPhotoExist,
     selectPhoto,
-    closeModal,
     selectTopic,
+    closeModal,
     selectedPhoto: state.selectedPhoto,
     favourite: state.favouritePhotos,
     photos: state.photoData,
