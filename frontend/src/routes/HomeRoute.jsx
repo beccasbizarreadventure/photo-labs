@@ -5,18 +5,28 @@ import TopNavigation from "components/TopNavigationBar";
 import "../styles/HomeRoute.scss";
 
 const HomeRoute = (props) => {
+  const {
+    topics,
+    doesFavPhotoExist,
+    selectTopic,
+    selectPhoto,
+    toggleFavourite,
+    favourite,
+    photos,
+  } = props;
+  
   return (
     <div className="home-route">
       <TopNavigation
-        topics={props.topics}
-        doesFavPhotoExist={props.doesFavPhotoExist}
-        selectTopic={props.selectTopic}
+        topics={topics}
+        doesFavPhotoExist={doesFavPhotoExist}
+        selectTopic={selectTopic}
       />
       <PhotoList
-        photos={props.photos}
-        toggleFavourite={props.toggleFavourite}
-        favourite={props.favourite}
-        selectPhoto={props.selectPhoto}
+        photos={photos}
+        toggleFavourite={toggleFavourite}
+        favourite={favourite}
+        selectPhoto={selectPhoto}
       />
     </div>
   );

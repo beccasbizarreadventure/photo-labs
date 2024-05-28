@@ -7,36 +7,46 @@ import closeSymbol from "../assets/closeSymbol.svg";
 import "../styles/PhotoDetailsModal.scss";
 
 const PhotoDetailsModal = (props) => {
-  const photo = props.selectedPhoto;
+  const {
+    closeModal,
+    currentSelectedPhoto,
+    toggleFavourite,
+    selectPhoto,
+    favourite,
+  } = props;
 
-  const relatedPhotosArray = Object.values(photo.similar_photos);
+  const relatedPhotosArray = Object.values(currentSelectedPhoto.similar_photos);
 
   return (
     <div className="photo-details-modal">
       <button
         className="photo-details-modal__close-button"
-        onClick={props.closeModal}
+        onClick={closeModal}
       >
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <section className="photo-details-modal__images">
         <PhotoFavButton
-          toggleFavourite={() => props.toggleFavourite(photo.id)}
-          favourite={props.favourite.includes(photo.id)}
+          toggleFavourite={() => toggleFavourite(currentSelectedPhoto.id)}
+          favourite={favourite.includes(currentSelectedPhoto.id)}
         />
-        <img className="photo-details-modal__image" src={photo.urls.full} />
+        <img
+          className="photo-details-modal__image"
+          src={currentSelectedPhoto.urls.full}
+        />
         <section className="photo-details-modal__header">
           <section className="photo-details-modal__photographer-details">
             <img
               className="photo-details-modal__photographer-profile"
-              src={photo.user.profile}
+              src={currentSelectedPhoto.user.profile}
             />
             <section className="photo-details-modal__photographer-info">
               <span className="photo-details-modal__photographer-details">
-                {photo.user.name}
+                {currentSelectedPhoto.user.name}
               </span>
               <span className="photo-details-modal__photographer-location">
-                {photo.location.city}, {photo.location.country}
+                {currentSelectedPhoto.location.city},{" "}
+                {currentSelectedPhoto.location.country}
               </span>
             </section>
           </section>
@@ -47,9 +57,9 @@ const PhotoDetailsModal = (props) => {
         <div>
           <PhotoList
             photos={relatedPhotosArray}
-            toggleFavourite={props.toggleFavourite}
-            favourite={props.favourite}
-            selectPhoto={props.selectPhoto}
+            toggleFavourite={toggleFavourite}
+            favourite={favourite}
+            selectPhoto={selectPhoto}
           />
         </div>
       </div>

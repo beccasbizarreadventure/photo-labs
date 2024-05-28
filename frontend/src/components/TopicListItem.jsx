@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import "../styles/TopicListItem.scss";
 
 const TopicListItem = (props) => {
+  const { selectTopic, topic } = props;
+
   // HOVER EFFECT FOR TOPICS //
   const [mouseOver, setOver] = useState(false);
   let listItemStyle = "topic-list__item span";
@@ -15,9 +17,9 @@ const TopicListItem = (props) => {
         className={listItemStyle}
         onMouseOver={() => setOver(true)}
         onMouseOut={() => setOver(false)}
-        onClick={props.selectTopic}
+        onClick={selectTopic}
       >
-        {props.topic.title}
+        {topic.title}
       </span>
     </li>
   );

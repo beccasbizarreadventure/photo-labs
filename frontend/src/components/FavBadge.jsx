@@ -4,9 +4,10 @@ import FavIcon from "./FavIcon";
 import "../styles/FavBadge.scss";
 
 const FavBadge = (props) => {
+  const { doesFavPhotoExist } = props;
   return (
     <span className="fav-badge">
-      <FavIcon selected displayAlert={!!props.doesFavPhotoExist} />
+      <FavIcon selected displayAlert={!!doesFavPhotoExist} />
     </span>
   );
 };

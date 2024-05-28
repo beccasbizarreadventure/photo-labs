@@ -3,18 +3,15 @@ import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = (props) => {
-  const photo = props.photo;
+  const { photo, favourite, toggleFavourite, selectPhoto } = props;
 
   return (
     <main className="photo-list__item">
-      <PhotoFavButton
-        toggleFavourite={props.toggleFavourite}
-        favourite={props.favourite}
-      />
+      <PhotoFavButton toggleFavourite={toggleFavourite} favourite={favourite} />
       <img
         className="photo-list__image"
-        src={props.photo.urls.regular}
-        onClick={props.selectPhoto}
+        src={photo.urls.regular}
+        onClick={selectPhoto}
       />
       <section className="photo-list__user-details">
         <img className="photo-list__user-profile" src={photo.user.profile} />

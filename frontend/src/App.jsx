@@ -13,7 +13,7 @@ const App = () => {
     closeModal,
     selectPhoto,
     selectTopic,
-    selectedPhoto,
+    currentSelectedPhoto,
     doesFavPhotoExist,
     favourite,
     topics,
@@ -31,10 +31,10 @@ const App = () => {
         favourite={favourite}
         doesFavPhotoExist={doesFavPhotoExist}
       />
-      {selectedPhoto && (
+      {currentSelectedPhoto && (
         <PhotoDetailsModal
           closeModal={closeModal}
-          selectedPhoto={selectedPhoto}
+          currentSelectedPhoto={currentSelectedPhoto}
           selectPhoto={selectPhoto}
           toggleFavourite={toggleFavourite}
           favourite={favourite}

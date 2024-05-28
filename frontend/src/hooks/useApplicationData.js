@@ -28,7 +28,7 @@ function reducer(state, action) {
     // state.photoData.find using the whole photo item found by ID allows this state to function in a reusuable manner
     // either from HomeRoute or in the PhotoModal, a PhotoListItem from PhotoList can be found and rendered onClick by it's ID 
     case ACTIONS.SELECT_PHOTO:
-      return { ...state, selectedPhoto: state.photoData.find((photo) => photo.id === payload.photo.id) };
+      return { ...state, currentSelectedPhoto: state.photoData.find((photo) => photo.id === payload.photo.id) };
 
     case ACTIONS.SELECT_TOPIC:
       return { ...state, selectedTopic: payload.topicId };
@@ -38,9 +38,9 @@ function reducer(state, action) {
       return { ...state, photoData: payload.photoData };
 
     // HANDLE MODAL CLOSE
-    // model open is dependant on selectedPhoto state
+    // model open is dependant on currentSelectedPhoto state
     case ACTIONS.CLOSE_MODAL:
-      return { ...state, selectedPhoto: null };
+      return { ...state, currentSelectedPhoto: null };
 
     // DISPLAY DATA FROM DATABASE TO TOPICS AND PHOTOS IN HOMEROUTE
     case ACTIONS.DISPLAY_PHOTO_DATA:
@@ -57,7 +57,7 @@ function reducer(state, action) {
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, {
     favouritePhotos: [],
-    selectedPhoto: null,
+    currentSelectedPhoto: null,
     selectedTopic: null,
     photoData: [],
     topicData: [],
@@ -125,7 +125,7 @@ const useApplicationData = () => {
     selectPhoto,
     selectTopic,
     doesFavPhotoExist,
-    selectedPhoto: state.selectedPhoto,
+    currentSelectedPhoto: state.currentSelectedPhoto,
     favourite: state.favouritePhotos,
     photos: state.photoData,
     topics: state.topicData,

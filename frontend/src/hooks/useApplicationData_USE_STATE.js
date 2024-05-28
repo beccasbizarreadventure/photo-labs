@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 const useApplicationData = () => { 
 
  //SELECT ONE PHOTO//
- const [selectedPhoto, setSelectedPhoto] = useState(null)
+ const [currentSelectedPhoto, setSelectedPhoto] = useState(null)
  const [favourite, setFavourite] = useState([]);
 
 
@@ -30,7 +30,7 @@ const toggleFavourite = (photoId) => {
  //FAV PHOTO CONSTANT//
  const doesFavPhotoExist = favourite.length >= 1;
 
- return {toggleFavourite, closeModal, selectPhoto, selectedPhoto, doesFavPhotoExist, favourite};
+ return {toggleFavourite, closeModal, selectPhoto, currentSelectedPhoto, doesFavPhotoExist, favourite};
 
 }
 

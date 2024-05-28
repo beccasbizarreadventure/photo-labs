@@ -63,4 +63,4 @@ npm start
 ## Known Issues
 1) In the backend package.json file, there is a proxy set to http://localhost:8001/, however it does not work for the Axios http requests. So, the full URL is used in the requests instead
 
-2) The functionality of the modal opening and closing onClick of a specific photo is dependant on the selectedPhoto state, when ideally the modal should have it's own state 
+2) The functionality of the modal opening and closing onClick of a specific photo is dependant on the currentSelectedPhoto state, when ideally the modal should have it's own state 

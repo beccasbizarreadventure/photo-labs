@@ -4,11 +4,13 @@ import "../styles/TopNavigationBar.scss";
 import TopicList from "./TopicList";
 
 const TopNavigation = (props) => {
+  const { topics, selectTopic, doesFavPhotoExist } = props;
+
   return (
     <nav className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
-      <TopicList topics={props.topics} selectTopic={props.selectTopic} />
-      <FavBadge doesFavPhotoExist={props.doesFavPhotoExist} />
+      <TopicList topics={topics} selectTopic={selectTopic} />
+      <FavBadge doesFavPhotoExist={doesFavPhotoExist} />
     </nav>
   );
 };
