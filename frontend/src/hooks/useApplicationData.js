@@ -69,7 +69,7 @@ const useApplicationData = () => {
 
   // FETCH PHOTO DATA
   useEffect(() => {
-    axios.get("http://localhost:8001/api/photos")
+    axios.get("/api/photos")
       .then(res => {
         const allPhotoData = res.data;
         dispatch({ type: ACTIONS.DISPLAY_PHOTO_DATA, payload: { allPhotoData } });
@@ -79,7 +79,7 @@ const useApplicationData = () => {
 
   // FETCH TOPIC DATA
   useEffect(() => {
-    axios.get("http://localhost:8001/api/topics")
+    axios.get("/api/topics")
       .then(res => {
         const allTopicData = res.data;
         dispatch({ type: ACTIONS.DISPLAY_TOPIC_DATA, payload: { allTopicData } });
@@ -90,7 +90,7 @@ const useApplicationData = () => {
   // FETCH PHOTOS FOR SPECIFIC TOPICS DATA
   useEffect(() => {
     if (state.selectedTopic) {
-      axios.get(`http://localhost:8001/api/topics/photos/${state.selectedTopic}`)
+      axios.get(`/api/topics/photos/${state.selectedTopic}`)
         .then(res => {
           const photoData = res.data;
           dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPIC, payload: { photoData } });
