@@ -2,7 +2,6 @@ import React from "react";
 
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import HomeRoute from "routes/HomeRoute";
-import FavouritePhotos from "routes/FavouritePhotos";
 
 import useApplicationData from "hooks/useApplicationData";
 
@@ -14,7 +13,6 @@ const App = () => {
     closeModal,
     selectPhoto,
     selectTopic,
-    getFavouritePhotos,
     handleShowFavourites,
     currentSelectedPhoto,
     doesFavPhotoExist,
