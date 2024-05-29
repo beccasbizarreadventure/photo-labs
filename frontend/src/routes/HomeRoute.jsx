@@ -13,6 +13,7 @@ const HomeRoute = (props) => {
     toggleFavourite,
     favourite,
     photos,
+    handleShowFavourites
   } = props;
   
   return (
@@ -21,6 +22,7 @@ const HomeRoute = (props) => {
         topics={topics}
         doesFavPhotoExist={doesFavPhotoExist}
         selectTopic={selectTopic}
+        handleShowFavourites={handleShowFavourites}
       />
       <PhotoList
         photos={photos}

@@ -2,6 +2,7 @@ import React from "react";
 
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import HomeRoute from "routes/HomeRoute";
+import FavouritePhotos from "routes/FavouritePhotos";
 
 import useApplicationData from "hooks/useApplicationData";
 
@@ -13,6 +14,8 @@ const App = () => {
     closeModal,
     selectPhoto,
     selectTopic,
+    getFavouritePhotos,
+    handleShowFavourites,
     currentSelectedPhoto,
     doesFavPhotoExist,
     favourite,
@@ -28,6 +31,7 @@ const App = () => {
         selectPhoto={selectPhoto}
         selectTopic={selectTopic}
         toggleFavourite={toggleFavourite}
+        handleShowFavourites={handleShowFavourites}
         favourite={favourite}
         doesFavPhotoExist={doesFavPhotoExist}
       />
@@ -39,7 +43,7 @@ const App = () => {
           toggleFavourite={toggleFavourite}
           favourite={favourite}
         />
-      )}
+        )}
     </div>
   );
 };

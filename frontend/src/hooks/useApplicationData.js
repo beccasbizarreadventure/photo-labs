@@ -7,6 +7,7 @@ const ACTIONS = {
   REMOVE_FAV_PHOTO: "REMOVE_FAV_PHOTO",
   DISPLAY_PHOTO_DATA: "SET_PHOTO_DATA",
   DISPLAY_TOPIC_DATA: "SET_TOPIC_DATA",
+  DISPLAY_FAVOURITE_PHOTOS: "DISPLAY_FAVOURITE_PHOTOS",
   SELECT_PHOTO: "SELECT_PHOTO",
   SELECT_TOPIC: "SELECT_TOPIC",
   GET_PHOTOS_BY_TOPIC: "GET_PHOTOS_BY_TOPIC",
@@ -24,8 +25,11 @@ function reducer(state, action) {
     case ACTIONS.REMOVE_FAV_PHOTO:
       return { ...state, favouritePhotos: [...state.favouritePhotos.filter((id) => id !== payload.photoId)] };
 
+    case ACTIONS.DISPLAY_FAVOURITE_PHOTOS:
+      return { ...state, photoData: [...state.photoData.filter((photo) => state.favouritePhotos.includes(photo.id))] };
+
     // STATE MANAGEMENT FOR SELECTING ONE TOPIC OR ONE PHOTO  
-    // state.photoData.find using the whole photo item found by ID allows this state to function in a reusuable manner
+    // state.photoData.find using the whole photo item found by ID allows this state to function in a reusable manner
     // either from HomeRoute or in the PhotoModal, a PhotoListItem from PhotoList can be found and rendered onClick by it's ID 
     case ACTIONS.SELECT_PHOTO:
       return { ...state, currentSelectedPhoto: state.photoData.find((photo) => photo.id === payload.photo.id) };
@@ -101,6 +105,10 @@ const useApplicationData = () => {
       dispatch({ type: ACTIONS.ADD_FAV_PHOTO, payload: { photoId } });
   };
 
+  const handleShowFavourites = () => {
+    dispatch({ type: ACTIONS.DISPLAY_FAVOURITE_PHOTOS });
+  }
+
   // SELECT DATA FOR A SPECIFIC PHOTO 
   const selectPhoto = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo } });
@@ -124,6 +132,7 @@ const useApplicationData = () => {
     closeModal,
     selectPhoto,
     selectTopic,
+    handleShowFavourites,
     doesFavPhotoExist,
     currentSelectedPhoto: state.currentSelectedPhoto,
     favourite: state.favouritePhotos,
