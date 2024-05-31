@@ -13,12 +13,14 @@ const HomeRoute = (props) => {
     toggleFavourite,
     favourite,
     photos,
-    handleShowFavourites
+    handleShowFavourites,
+    returnHome
   } = props;
   
   return (
     <div className="home-route">
       <TopNavigation
+        returnHome={returnHome}
         topics={topics}
         doesFavPhotoExist={doesFavPhotoExist}
         selectTopic={selectTopic}
