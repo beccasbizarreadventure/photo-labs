@@ -14,6 +14,7 @@ const App = () => {
     selectPhoto,
     selectTopic,
     handleShowFavourites,
+    returnHome,
     currentSelectedPhoto,
     doesFavPhotoExist,
     favourite,
@@ -26,6 +27,7 @@ const App = () => {
       <HomeRoute
         topics={topics}
         photos={photos}
+        returnHome={returnHome}
         selectPhoto={selectPhoto}
         selectTopic={selectTopic}
         toggleFavourite={toggleFavourite}

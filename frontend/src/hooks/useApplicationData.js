@@ -13,6 +13,7 @@ const ACTIONS = {
   SELECT_TOPIC: "SELECT_TOPIC",
   GET_PHOTOS_BY_TOPIC: "GET_PHOTOS_BY_TOPIC",
   CLOSE_MODAL: "CLOSE_MODAL",
+  RETURN_HOME: "RETURN_HOME"
 };
 
 function reducer(state, action) {
@@ -37,6 +38,9 @@ function reducer(state, action) {
 
     case ACTIONS.SELECT_TOPIC:
       return { ...state, selectedTopic: payload.topicId };
+
+    case ACTIONS.RETURN_HOME:
+      return { ...state, selectedTopic: null}
 
     // PHOTOS RETURNED BY SELECTED TOPIC ID  
     case ACTIONS.GET_PHOTOS_BY_TOPIC:
@@ -85,7 +89,7 @@ const useApplicationData = () => {
 
   // FETCH PHOTO DATA
   useEffect(() => {
-    axios.get("http://localhost:8001/api/photos")
+    axios.get("/api/photos")
       .then(res => {
         const allPhotoData = res.data;
         dispatch({ type: ACTIONS.DISPLAY_PHOTO_DATA, payload: { allPhotoData } });
@@ -95,7 +99,7 @@ const useApplicationData = () => {
 
   // FETCH TOPIC DATA
   useEffect(() => {
-    axios.get("http://localhost:8001/api/topics")
+    axios.get("/api/topics")
       .then(res => {
         const allTopicData = res.data;
         dispatch({ type: ACTIONS.DISPLAY_TOPIC_DATA, payload: { allTopicData } });
@@ -106,13 +110,14 @@ const useApplicationData = () => {
   // FETCH PHOTOS FOR SPECIFIC TOPICS DATA
   useEffect(() => {
     if (state.selectedTopic) {
-      axios.get(`http://localhost:8001/api/topics/photos/${state.selectedTopic}`)
+      axios.get(`/api/topics/photos/${state.selectedTopic}`)
         .then(res => {
           const photoData = res.data;
           dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPIC, payload: { photoData } });
         })
         .catch(error => console.error("There was a problem with your fetch operation:", error));
     }
+    console.log(state.selectedTopic);
   }, [state.selectedTopic]);
 
   // LIKE/UNLIKE A PHOTO
@@ -144,6 +149,16 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SELECT_TOPIC, payload: { topicId: topic.id } });
   };
 
+  const returnHome = () => {
+    dispatch ({ type: ACTIONS.RETURN_HOME })
+    axios.get("/api/photos")
+    .then(res => {
+      const allPhotoData = res.data;
+      dispatch({ type: ACTIONS.DISPLAY_PHOTO_DATA, payload: { allPhotoData } });
+    })
+    .catch(error => console.error("There was a problem with your fetch operation:", error));
+  }
+
   // CLOSE PHOTO MODAL WHEN OPEN - MODEL OPENS ON SELECTING A PHOTO 
   const closeModal = () => {
     dispatch({ type: ACTIONS.CLOSE_MODAL });
@@ -158,6 +173,7 @@ const useApplicationData = () => {
     selectPhoto,
     selectTopic,
     handleShowFavourites,
+    returnHome,
     doesFavPhotoExist,
     currentSelectedPhoto: state.currentSelectedPhoto,
     favourite: state.favouritePhotos,
