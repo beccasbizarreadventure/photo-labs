@@ -79,7 +79,6 @@ const useApplicationData = () => {
   useEffect(() => {
     axios.get("http://localhost:8001/api/favourites")
       .then(res => {
-        console.log("Favourite added", res);
         const allFavourites = res.data;
         dispatch({ type: ACTIONS.DISPLAY_ALL_FAVOURITES, payload: { allFavourites } });
       })
@@ -117,18 +116,17 @@ const useApplicationData = () => {
         })
         .catch(error => console.error("There was a problem with your fetch operation:", error));
     }
-    console.log(state.selectedTopic);
   }, [state.selectedTopic]);
 
   // LIKE/UNLIKE A PHOTO
   const toggleFavourite = (photoId) => {
     if (state.favouritePhotos.includes(photoId)) {
-      axios.delete(`http://localhost:8001/api/favourites/${photoId}`)
+      axios.delete(`/api/favourites/${photoId}`)
       .then(res => {
       dispatch({ type: ACTIONS.REMOVE_FAV_PHOTO, payload: { photoId } });
       });
     } else {
-      axios.post(`http://localhost:8001/api/favourites`, { photo_id: photoId })
+      axios.post(`/api/favourites`, { photo_id: photoId })
       .then(res => {
       dispatch({ type: ACTIONS.ADD_FAV_PHOTO, payload: { photoId } });
       });
