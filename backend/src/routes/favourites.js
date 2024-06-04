@@ -2,6 +2,9 @@ const router = require("express").Router();
 
 
 module.exports = db => {
+  // get the IDs of favourited photos and map over the returned array of 
+  // favourite photos to create an array containing just the IDs 
+  // grabbing the full photo object causes errors with how data is displayed on the frontend 
   router.get("/favourites", (request, response) => {
     db.query(`
           SELECT favourites.photo_id FROM favourites
@@ -11,6 +14,7 @@ module.exports = db => {
     });
   });
 
+  // update favourites table with a photo id when a photo is likes, adding it the the array of photos 
   router.post("/favourites", (request, response) => {
     const { photo_id } = request.body;
     return db.query(`
@@ -25,6 +29,7 @@ module.exports = db => {
       });
   });
 
+  // remove a photo from the favourites table where the specific photo ID is a parameter supplied in the URL (parameters)
   router.delete("/favourites/:id", (request, response) => {
     const photo_id = request.params.id;
     return db.query(`

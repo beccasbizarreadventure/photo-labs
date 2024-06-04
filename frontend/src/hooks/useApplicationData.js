@@ -7,7 +7,7 @@ const ACTIONS = {
   REMOVE_FAV_PHOTO: "REMOVE_FAV_PHOTO",
   DISPLAY_PHOTO_DATA: "SET_PHOTO_DATA",
   DISPLAY_TOPIC_DATA: "SET_TOPIC_DATA",
-  DISPLAY_ALL_FAVOURITES: "DISPLAY_ALL_FAVOURITES",
+  FAVOURITES_BY_PHOTO_ID: "FAVOURITES_BY_PHOTO_ID",
   DISPLAY_FAVOURITE_PHOTOS: "DISPLAY_FAVOURITE_PHOTOS",
   SELECT_PHOTO: "SELECT_PHOTO",
   SELECT_TOPIC: "SELECT_TOPIC",
@@ -58,7 +58,7 @@ function reducer(state, action) {
     case ACTIONS.DISPLAY_TOPIC_DATA:
       return { ...state, topicData: payload.allTopicData };
 
-    case ACTIONS.DISPLAY_ALL_FAVOURITES: 
+    case ACTIONS.FAVOURITES_BY_PHOTO_ID: 
       return { ...state, favouritePhotos: payload.allFavourites};
 
     default:
@@ -77,10 +77,10 @@ const useApplicationData = () => {
 
   // FETCH FAVOURITES DATA
   useEffect(() => {
-    axios.get("http://localhost:8001/api/favourites")
+    axios.get("/api/favourites")
       .then(res => {
         const allFavourites = res.data;
-        dispatch({ type: ACTIONS.DISPLAY_ALL_FAVOURITES, payload: { allFavourites } });
+        dispatch({ type: ACTIONS.FAVOURITES_BY_PHOTO_ID, payload: { allFavourites } });
       })
       .catch(error => console.error("There was a problem with your fetch operation:", error));
   }, []);
