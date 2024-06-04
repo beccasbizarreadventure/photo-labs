@@ -30,6 +30,7 @@ module.exports = db => {
   });
 
   // remove a photo from the favourites table where the specific photo ID is a parameter supplied in the URL (parameters)
+  // id has to be grabbed as a parameter because a delete request does not have a res.body
   router.delete("/favourites/:id", (request, response) => {
     const photo_id = request.params.id;
     return db.query(`

@@ -76,6 +76,7 @@ const useApplicationData = () => {
   });
 
   // FETCH FAVOURITES DATA
+  // gets the array of favourited photo id's 
   useEffect(() => {
     axios.get("/api/favourites")
       .then(res => {
@@ -119,6 +120,8 @@ const useApplicationData = () => {
   }, [state.selectedTopic]);
 
   // LIKE/UNLIKE A PHOTO
+  // if state includes a photoId, either add a new photo with a specific photo ID to the favourites table in db
+  // or delete the photo by id 
   const toggleFavourite = (photoId) => {
     if (state.favouritePhotos.includes(photoId)) {
       axios.delete(`/api/favourites/${photoId}`)
@@ -133,6 +136,7 @@ const useApplicationData = () => {
     }
   };
 
+// TO SHOW FAVOURITE PHOTOS
   const handleShowFavourites = () => {
     dispatch({ type: ACTIONS.DISPLAY_FAVOURITE_PHOTOS });
   };
@@ -147,6 +151,7 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SELECT_TOPIC, payload: { topicId: topic.id } });
   };
 
+  // RETURN TO MAIN PHOTO DISPLAY
   const returnHome = () => {
     dispatch ({ type: ACTIONS.RETURN_HOME })
     axios.get("/api/photos")
